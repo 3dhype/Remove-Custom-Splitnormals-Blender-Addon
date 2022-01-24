@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Remove Custom Splitnormals",
     "description": "When importing 3D File Formats from different sources, custom splitnormals sometimes causing normal artifacts. To clean the object, the script will remove the custom split normals. So Blender can manage the normals the \"normal\" way.",
-    "version": (0, 1, 00),
+    "version": (0, 2, 00),
     "blender": (3, 0, 0),
     "category": "Mesh",
     "author": "3ddy",
@@ -10,13 +10,13 @@ bl_info = {
 
 import bpy
 
-
 def main(context):
     selection = bpy.context.selected_objects
 
     for obj in selection:
-        bpy.context.view_layer.objects.active = obj
-        bpy.ops.mesh.customdata_custom_splitnormals_clear()
+        if obj.type == 'MESH':
+            bpy.context.view_layer.objects.active = obj
+            bpy.ops.mesh.customdata_custom_splitnormals_clear()
 
 
 class RemoveCustomSplitnormals(bpy.types.Operator):
@@ -27,11 +27,23 @@ class RemoveCustomSplitnormals(bpy.types.Operator):
 
     @classmethod
     def poll(cls, context):
-        return context.active_object is not None
+        if len(get_valid_objects()) == 0:
+            return False
+
+        return True
 
     def execute(self, context):
         main(context)
         return {'FINISHED'}
+    
+def get_valid_objects():
+    objects = []
+    for obj in bpy.context.selected_objects:
+        if obj.type == 'MESH':
+                objects.append(obj)
+
+    return objects
+    
 
 def menu_func(self, context):
     self.layout.operator(RemoveCustomSplitnormals.bl_idname, text=RemoveCustomSplitnormals.bl_label)
