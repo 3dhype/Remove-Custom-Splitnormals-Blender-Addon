@@ -2,7 +2,7 @@
 When importing 3D File Formats into Blender from different sources, custom splitnormals sometimes causing normal artifacts. To clean the object, the script will remove the custom split normals. So Blender can manage the normals the \"normal\" way.
 
 ![normals](https://user-images.githubusercontent.com/39619732/151008511-7ffde601-3cf0-45ba-810c-9714f896c01e.png)
-left: how imported normals could look like
+left: how imported normals could look like\n
 right: after removing custom split normals
 
 To use it:
