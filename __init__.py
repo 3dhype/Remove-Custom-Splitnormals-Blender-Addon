@@ -20,7 +20,7 @@ def main(context):
 
 
 class RemoveCustomSplitnormals(bpy.types.Operator):
-    """Tooltip"""
+    """Remove Custom Splitnormals"""
     bl_idname = "object.remove_custom_splitnormals"
     bl_label = "Remove Custom Splitnormals"
     bl_options = {'REGISTER', 'UNDO'}
